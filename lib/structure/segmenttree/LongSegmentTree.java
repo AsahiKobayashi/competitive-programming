@@ -4,23 +4,23 @@ import java.util.Arrays;
 import java.util.function.BinaryOperator;
 
 /**
- * SegmentTreeのint限定ver
+ * SegmentTreeのlong限定ver
  * 機能はSegmentTree同様
  * ジェネリクスを使っていないためこっちの方が早くなります(なるはず)
  * Monoidインターフェイスの代替としてモノイドはコンストラクタで定義してください
  */
-class IntSegmentTree {
+class LongSegmentTree {
 
-      private int [] tree;
+      private long [] tree;
       private int n;
       private int e;
-      private BinaryOperator<Integer> op;
+      private BinaryOperator<Long> op;
 
-      public IntSegmentTree(int n , int e , BinaryOperator<Integer> op) {
+      public LongSegmentTree(int n , int e , BinaryOperator<Long> op) {
             this.n = n;
             this.e = e;
             this.op = op;
-            this.tree = new int[2 * n];
+            this.tree = new long[2 * n];
             Arrays.fill(tree, e);
       }
 
@@ -33,13 +33,13 @@ class IntSegmentTree {
             }
       }
 
-      public int query(int index) {
+      public long query(int index) {
             return query(index,index+1);
       }
 
-      public int query(int l, int r) {
-            int resLeft = e;
-            int resRight = e;
+      public long query(int l, int r) {
+            long resLeft = e;
+            long resRight = e;
             l += n;
             r += n;
             while (l < r) {
@@ -58,3 +58,4 @@ class IntSegmentTree {
       }
 
 }
+
