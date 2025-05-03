@@ -11,7 +11,7 @@ class StaticRangeSum {
 
     /**
      * @description : 前処理を行います
-     * @order : O(N)
+     * @order N
      * @param array
      */
     StaticRangeSum(int [] array) {
@@ -22,7 +22,7 @@ class StaticRangeSum {
 
     /**
      * @description 前処理を行います
-     * @order O(N)
+     * @order N
      * @param array
      */
     StaticRangeSum(long [] array) {
@@ -33,7 +33,7 @@ class StaticRangeSum {
 
     /**
      * @description 区間 [l,r) の総和を取得します
-     * @order O(1)
+     * @order 1
      * @param l 下限
      * @param r 上限
      * @return 区間 [l,r) の総和
