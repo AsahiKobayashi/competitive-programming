@@ -1,4 +1,4 @@
-package lib.structure.segmenttree;
+package lib.structure.SegmentTree;
 
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
