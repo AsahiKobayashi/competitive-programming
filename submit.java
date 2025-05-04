@@ -21,7 +21,7 @@ class Solver extends Base{
         Solver() {  }
 
         void solve(FastInputOutput io) {
-                
+
         }  
 
 }
