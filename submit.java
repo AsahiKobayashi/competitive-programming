@@ -1,11 +1,5 @@
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.math.*;
-import java.util.stream.*;
-
-import java.util.function.*;
 
 class Main implements Runnable{
         public static void main(String ... args) {
@@ -31,7 +25,6 @@ class Solver extends Base{
         }  
 
 }
-
 
 class Function {
         public static final long nC2(long n) { return (n*(n-1))/2; }
@@ -66,16 +59,17 @@ class FastInputOutput extends PrintWriter {
         private boolean hasNextByte() {
                 if (ptr < buflen) {
                         return true;
-                }else{
+                }
+                else{
                         ptr = 0;
-                try {
-                        buflen = in.read(buffer);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-                if (buflen <= 0) {
-                        return false;
-                }
+                        try {
+                                buflen = in.read(buffer);
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
+                        if (buflen <= 0) {
+                                return false;
+                        }
                 }
                 return true;
         }
