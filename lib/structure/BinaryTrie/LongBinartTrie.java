@@ -1,4 +1,11 @@
-class LongBinaryTrie {
+/**
+ * BinaryTrie
+ * 
+ * Trie木を0と1に限定した木
+ * 
+ * 一律 O(bit長) で動作します
+ */
+class BinaryTrie {
 
     private static class Node {
         int[] child = {-1, -1};
@@ -8,15 +15,29 @@ class LongBinaryTrie {
     private final List<Node> nodes = new ArrayList<>();
     private final int BITLEN;
 
-    public LongBinaryTrie() {
-        this.BITLEN = 60;
+    /**
+     * bit長を定義
+     *  32bit整数型であれば BITLEN = 30
+     *  64bit整数型であれば BITLEN = 60
+     * @param BITLEN bit長
+     */
+    public BinaryTrie(int BITLEN) {
+        this.BITLEN = BITLEN;
         nodes.add(new Node());
     }
 
+    /**
+     * 要素数を返します
+     * @return 要素数
+     */
     public int size() {
         return nodes.get(0).count;
     }
 
+    /**
+     * 要素 x を追加します
+     * @param x 追加する要素
+     */
     public void add(long x) {
         int p = 0;
         for (int i = BITLEN - 1; i >= 0; i--) {
@@ -31,6 +52,10 @@ class LongBinaryTrie {
         nodes.get(p).count++;
     }
 
+    /**
+     * 要素 x を削除します
+     * @param x 削除する要素
+     */
     public void remove(long x) {
         if (count(x) == 0) return;
         int p = 0;
@@ -42,26 +67,54 @@ class LongBinaryTrie {
         nodes.get(p).count--;
     }
 
+    /**
+     * 要素 x が存在するか判定します
+     * @param x 調べる要素
+     * @return 含まれるかの真偽値
+     */
     public boolean contains(long x) {
         return count(x) > 0;
     }
 
+    /**
+     * 最小値を取得します
+     * @return 最小値
+     */
     public long first() {
         return size() == 0 ? -1 : get(1);
     }
 
+    /**
+     * 最大値を取得します
+     * @return 最大値
+     */
     public long last() {
         return size() == 0 ? -1 : get(size());
     }
 
+    /**
+     * k 番目に大きい要素を取得します
+     * @param k 番目
+     * @return k 番目に大きい要素
+     */
     public long kthLargest(int k) {
         return get(size() - k + 1);
     }
 
+    /**
+     * k 番目に小さい要素を取得します
+     * @param k 番目
+     * @return k 番目に小さい要素
+     */
     public long kthSmallest(int k) {
         return get(k);
     }
 
+    /**
+     * 要素xが何個存在するか返します
+     * @param x 調べる要素
+     * @return 個数
+     */
     public int count(long x) {
         int p = 0;
         for (int i = BITLEN - 1; i >= 0; i--) {
@@ -72,6 +125,11 @@ class LongBinaryTrie {
         return nodes.get(p).count;
     }
 
+    /**
+     * x 未満の値の個数を返します
+     * @param x 調べる要素の境界値
+     * @return x 未満の値の個数
+     */
     public int lowerCount(long x) {
         int p = 0, count = 0;
         for (int i = BITLEN - 1; i >= 0; i--) {
@@ -86,46 +144,91 @@ class LongBinaryTrie {
         return count;
     }
 
-    public int ceilingCount(long x) {
-        return this.size() - lowerCount(x);
-    }
-
-    public int higherCount(long x) {
-        return this.size() - floorCount(x);
-    }
-
+    /**
+     * x 以下の値の個数を返します
+     * @param x 調べる要素の境界値
+     * @return x 以下の値の個数
+     */
     public int floorCount(long x) {
         return lowerCount(x + 1);
     }
 
+    /**
+     * x より大きい値の個数を返します
+     * @param x 調べる要素の境界値
+     * @return x より大きい値の個数
+     */
+    public int higherCount(long x) {
+        return this.size() - floorCount(x);
+    }
+
+    /**
+     * x 以上の値の個数を返します
+     * @param x 調べる要素の境界値
+     * @return x 以上の値の個数
+     */
+    public int ceilingCount(long x) {
+        return this.size() - lowerCount(x);
+    }
+
+    /**
+     * 値の範囲 [l,r) に含まれる要素数を返します
+     * @param l 下限 
+     * @param r 上限
+     * @return 値の範囲 [l,r) に含まれる要素の個数
+     */
     public int rangeCount(long l, long r) {
         return lowerCount(r) - lowerCount(l);
     }
 
+    /**
+     * x 未満のうち最大の要素を取得します
+     * @param x 調べる要素
+     * @return x 未満のうち最大の要素
+     */
     public long lower(long x) {
         int c = lowerCount(x);
         if (c == 0) return -1;
         return get(c);
     }
 
+    /**
+     * x 以下のうち最大の要素を取得します
+     * @param x 調べる要素
+     * @return x 以下のうち最大の要素
+     */
     public long floor(long x) {
         int c = floorCount(x);
         if (c == 0) return -1;
         return get(c);
     }
 
+    /**
+     * x より大きい要素のうち最小の要素を取得します
+     * @param x 調べる要素
+     * @return x より大きい要素のうち最小の要素
+     */
     public long higher(long x) {
         int c = ceilingCount(x + 1);
         if (c == 0) return -1;
         return get(size() - c + 1);
     }
 
+    /**
+     * x 以上のうち最大の要素を取得します
+     * @param x 調べる要素
+     * @return x 以上のうち最大の要素
+     */
     public long ceiling(long x) {
         int c = ceilingCount(x);
         if (c == 0) return -1;
         return get(size() - c + 1);
     }
 
+    /**
+     * 含まれない値のうち最小の値を返します
+     * @return 含まれない値のうち最小の値
+     */
     public long mex() {
         int p = 0;
         long res = 0;
