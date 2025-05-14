@@ -1,14 +1,3 @@
-package lib.math;
-
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * Pollard's Rho 法 : ポラードのロー法
- * 
- * 64bit整数以下の任意の値で素因数分解を行います
- */
 class Pollard {
 
         private final BigInteger ZERO = new BigInteger("0");
@@ -16,12 +5,6 @@ class Pollard {
         private final BigInteger TWO  = new BigInteger("2");
         private final java.security.SecureRandom random = new java.security.SecureRandom();
 
-        /**
-         * 素因数分解を行います
-         * @order N^(1/4) = 4乗根
-         * @param n
-         * @return
-         */
         public final Map<Long, Integer> fact (long n) {
                 Map<Long, Integer> map = new HashMap<>();
                 factor(new BigInteger(String.valueOf(n)), map);
@@ -78,4 +61,4 @@ class Pollard {
                 factor(N.divide(d), map);
         }
 
-    }
+}
